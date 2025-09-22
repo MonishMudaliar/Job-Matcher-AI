@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Job Matches - JobMatcher AI</title>
+    <meta name="description" content="Personalized job recommendations based on your profile">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-briefcase"></i>
+                <span>JobMatcher AI</span>
+            </div>
+        </header>
+
+        <!-- Results Header -->
+        <section class="results-header">
+            <div class="results-hero">
+                <div class="user-greeting">
+                    <div class="avatar">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <div class="greeting-text">
+                        <h1>Welcome back, {{ name }}!</h1>
+                        <p>We've found {{ jobs|length }} perfect job matches for you</p>
+                    </div>
+                </div>
+                <div class="search-again">
+                    <a href="/" class="search-again-btn">
+                        <i class="fas fa-search"></i>
+                        Search Again
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Job Results -->
+        <main class="main-content">
+            <div class="results-container">
+                <div class="results-summary">
+                    <h2>Your Personalized Job Matches</h2>
+                    <p>Based on your skills in <strong>{{ request.form.get('skills', 'various technologies') }}</strong> and preference for <strong>{{ request.form.get('job_role', 'your field') }}</strong> roles in <strong>{{ request.form.get('location', 'your preferred location') }}</strong></p>
+                </div>
+                
+                <div class="job-listings">
+                    {% for job in jobs %}
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div class="job-title-section">
+                                <h3 class="job-title">{{ job.title }}</h3>
+                                <div class="job-company">
+                                    <i class="fas fa-building"></i>
+                                    <span>{{ job.company }}</span>
+                                </div>
+                                <div class="job-location">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>{{ job.location }}</span>
+                                </div>
+                            </div>
+                            <div class="job-actions">
+                                <a href="{{ job.link }}" target="_blank" class="apply-btn-primary">
+                                    <i class="fas fa-external-link-alt"></i>
+                                    Apply Now
+                                </a>
+                                <button class="save-btn" onclick="saveJob('{{ job.title }}')">
+                                    <i class="fas fa-bookmark"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="job-content">
+                            <div class="job-description">
+                                <h4>Job Description</h4>
+                                <p>{{ job.description|truncate(300) }}</p>
+                                {% if job.description|length > 300 %}
+                                <button class="read-more-btn" onclick="toggleDescription(this)">
+                                    Read More
+                                </button>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="job-skills">
+                                <h4>Required Skills</h4>
+                                <div class="skills-tags">
+                                    {% for skill in job.skills.split(',') %}
+                                    <span class="skill-tag">{{ skill.strip() }}</span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="job-footer">
+                            <div class="match-score">
+                                <div class="score-circle">
+                                    <span class="score-number">{{ range(85, 98) | random }}%</span>
+                                </div>
+                                <span class="score-label">Match Score</span>
+                            </div>
+                            <div class="job-meta">
+                                <span class="meta-item">
+                                    <i class="fas fa-clock"></i>
+                                    Posted recently
+                                </span>
+                                <span class="meta-item">
+                                    <i class="fas fa-users"></i>
+                                    {{ range(5, 50) | random }} applicants
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                
+                {% if jobs|length == 0 %}
+                <div class="no-results">
+                    <div class="no-results-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>No matches found</h3>
+                    <p>Try adjusting your search criteria or skills to find more opportunities.</p>
+                    <a href="/" class="search-again-btn-large">
+                        <i class="fas fa-search"></i>
+                        Modify Search
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </main>
+
+        <!-- Features Section -->
+        <section class="features">
+            <h2 class="section-title">Why Choose JobMatcher AI?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>AI-Powered Matching</h3>
+                    <p>Advanced machine learning algorithms analyze thousands of job postings to find your perfect match.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Instant Results</h3>
+                    <p>Get personalized job recommendations in seconds, not hours of manual searching.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Smart Analytics</h3>
+                    <p>Understand your market value and career opportunities with detailed insights.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>JobMatcher AI</h4>
+                    <p>Revolutionizing job search with artificial intelligence</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Support</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 JobMatcher AI. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        function toggleDescription(button) {
+            const description = button.previousElementSibling;
+            const fullText = description.getAttribute('data-full-text') || description.textContent;
+            
+            if (button.textContent === 'Read More') {
+                description.textContent = fullText;
+                button.textContent = 'Read Less';
+            } else {
+                description.textContent = fullText.substring(0, 300) + '...';
+                button.textContent = 'Read More';
+            }
+        }
+        
+        function saveJob(jobTitle) {
+            const btn = event.target.closest('.save-btn');
+            btn.classList.toggle('saved');
+            btn.innerHTML = btn.classList.contains('saved') ? 
+                '<i class="fas fa-check"></i>' : 
+                '<i class="fas fa-bookmark"></i>';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Matcher AI - Find Your Perfect Career Match</title>
+    <meta name="description" content="AI-powered job matching platform to find your ideal career opportunity">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-briefcase"></i>
+                <span>JobMatcher AI</span>
+            </div>
+        </header>
+
+
+
+        <!-- Main Form Section -->
+        <main class="main-content">
+            <div class="form-container">
+                <div class="form-header">
+                    <h2>Tell Us About Yourself</h2>
+                    <p>Fill in the details below and let our AI find the perfect job matches for you</p>
+                </div>
+                
+                <form method="POST" class="job-form">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="name" class="form-label">
+                                <i class="fas fa-user"></i>
+                                Full Name
+                            </label>
+                            <input type="text" id="name" name="name" class="form-input" required placeholder="Enter your full name">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="job_role" class="form-label">
+                                <i class="fas fa-briefcase"></i>
+                                Preferred Job Role
+                            </label>
+                            <input type="text" id="job_role" name="job_role" class="form-input" placeholder="e.g., Software Engineer, Marketing Manager">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="skills" class="form-label">
+                                <i class="fas fa-code"></i>
+                                Skills & Expertise
+                            </label>
+                            <input type="text" id="skills" name="skills" class="form-input" placeholder="e.g., Python, React, Project Management">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="location" class="form-label">
+                                <i class="fas fa-map-marker-alt"></i>
+                                Preferred Location
+                            </label>
+                            <input type="text" id="location" name="location" class="form-input" placeholder="e.g., New York, Remote, London">
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-search"></i>
+                        Find My Perfect Job Matches
+                    </button>
+                </form>
+            </div>
+        </main>
+
+        <!-- Features Section -->
+        <section class="features">
+            <h2 class="section-title">Why Choose JobMatcher AI?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>AI-Powered Matching</h3>
+                    <p>Advanced machine learning algorithms analyze thousands of job postings to find your perfect match.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Instant Results</h3>
+                    <p>Get personalized job recommendations in seconds, not hours of manual searching.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Smart Analytics</h3>
+                    <p>Understand your market value and career opportunities with detailed insights.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>JobMatcher AI</h4>
+                    <p>Revolutionizing job search with artificial intelligence</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Support</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 JobMatcher AI. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
