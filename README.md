@@ -1,6 +1,3 @@
-<p align="center">
-    <img src="https://img.icons8.com/?size=512&id=55494&format=png" align="center" width="30%">
-</p>
 <p align="center"><h1 align="center">JOB-MATCHER-AI</h1></p>
 <p align="center">
 	<em><code>❯ REPLACE-ME</code></em>
